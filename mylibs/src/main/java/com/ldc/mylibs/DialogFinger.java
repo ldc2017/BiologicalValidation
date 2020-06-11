@@ -26,6 +26,19 @@ public class DialogFinger extends AppCompatDialog {
     private Context context;
     private static final int notify_code = 0x000;
     private static final int finger_state_code = 0x001;
+    private FingerResultCallback fingerResultCallback;
+
+
+    final public void setFingerResultCallback(FingerResultCallback fingerResultCallback) {
+        this.fingerResultCallback = fingerResultCallback;
+    }
+
+    //暴露接口
+    public interface FingerResultCallback {
+        public void update(boolean success, String message);
+    }
+
+    //消息
     private final Handler uiHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -44,6 +57,7 @@ public class DialogFinger extends AppCompatDialog {
             return false;
         }
     });
+    //事件
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -53,9 +67,13 @@ public class DialogFinger extends AppCompatDialog {
             }
         }
     };
-    private DialogFingerHandler.FingerResult fingerResult = new DialogFingerHandler.FingerResult() {
+    //监听
+    private DialogFingerHandler.FingerResult fingerHandlerResult = new DialogFingerHandler.FingerResult() {
         @Override
         public void update(boolean success, String message) {
+            if (null != fingerResultCallback) {
+                fingerResultCallback.update(success, message);
+            }
             final DialogFingerBean fingerBean = new DialogFingerBean(success, message);
             Message msg = uiHandler.obtainMessage(finger_state_code);
             msg.obj = fingerBean;
@@ -104,7 +122,7 @@ public class DialogFinger extends AppCompatDialog {
                 //可以使用
                 DialogFingerHandler fingerHandler = new DialogFingerHandler(context);
                 fingerHandler.startAuth(fingerprintManagerCompat, null);
-                fingerHandler.setFingerResult(fingerResult);
+                fingerHandler.setFingerResult(fingerHandlerResult);
             }
             if (!TextUtils.isEmpty(str_info)) {
                 Message message = uiHandler.obtainMessage(notify_code);
@@ -154,10 +172,8 @@ public class DialogFinger extends AppCompatDialog {
             dialogFinger = new DialogFinger(activity);
         }
 
-        final public Builder setSuccess(boolean success) {
-            if (null != dialogFinger) {
-                dialogFinger.checkSuccess(success);
-            }
+        final public Builder setResultCallBack(DialogFinger.FingerResultCallback resultCallBack) {
+            dialogFinger.setFingerResultCallback(resultCallBack);
             return this;
         }
 

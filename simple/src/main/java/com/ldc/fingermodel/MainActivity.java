@@ -17,6 +17,14 @@ public class MainActivity extends AppCompatActivity {
     //指纹
     final public void FingerCheck(View view) {
         new DialogFinger.Builder(this)
+                .setResultCallBack(new DialogFinger.FingerResultCallback() {
+                    @Override
+                    public void update(boolean success, String message) {
+                        if (success) {
+                            finish();
+                        }
+                    }
+                })
                 .build().showDialog();
     }
 }
