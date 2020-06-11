@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        android:background="@drawable/dialog_bg"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="@dimen/dp_250"
+        android:layout_height="@dimen/dp_250">
+
+    <RadioButton
+            android:layout_centerInParent="true"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_80"
+            android:button="@null"
+            android:id="@+id/rb_finger"
+            android:checked="false"
+            android:background="@drawable/finger_change_bg"
+            />
+
+    <Button
+            android:textSize="@dimen/sp_17"
+            android:background="@drawable/btn_bg"
+            android:id="@+id/btn_cancle"
+            android:minWidth="@dimen/dp_150"
+            android:textColor="@color/color_222222"
+            android:layout_centerHorizontal="true"
+            android:text="@string/str_cancel"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</RelativeLayout>

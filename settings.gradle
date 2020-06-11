@@ -1,0 +1,3 @@
+rootProject.name='BiologicalValidation'
+include ':simple'
+include ':mylibs'
