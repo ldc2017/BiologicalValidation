@@ -137,15 +137,15 @@ public class DialogFinger extends AppCompatDialog {
     }
 
     final public void showDialog() {
-        if (!isShowing()) {
+        if (!this.isShowing()) {
+            this.show();
             checkFinger();
-            show();
         }
     }
 
     final public void hideDialog() {
-        if (isShowing()) {
-            dismiss();
+        if (this.isShowing()) {
+            this.dismiss();
         }
     }
 
@@ -159,7 +159,7 @@ public class DialogFinger extends AppCompatDialog {
                     hideDialog();
                 }
             }
-        }, 1500);
+        }, 800);
     }
 
 

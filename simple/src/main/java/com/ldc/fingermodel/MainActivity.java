@@ -2,6 +2,7 @@ package com.ldc.fingermodel;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.ldc.mylibs.DialogFinger;
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void update(boolean success, String message) {
                         if (success) {
-                            finish();
+                            Toast.makeText(MainActivity.this, "true", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
